@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-04T12:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en">
+        <body>
+            <trans-unit id="create">
+                <source>Create episode</source>
+            </trans-unit>
+            <trans-unit id="episodeNumber">
+                <source>Episode</source>
+            </trans-unit>
+            <trans-unit id="empty">
+                <source>There are no episodes yet.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

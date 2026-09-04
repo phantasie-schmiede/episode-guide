@@ -1,0 +1,58 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers">
+<foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/season.xlf" />
+
+<f:asset.script
+    identifier="autoSizeTextArea"
+    src="EXT:templates/Resources/Public/JavaScript/autoSizeTextArea.js"
+    type="module" />
+
+<div class="form-floating mb-3">
+    <f:form.textfield
+        class="form-control"
+        id="title"
+        placeholder="{foundation:translate(id: 'season:title')}"
+        property="title"
+        type="text" />
+    <label
+        class="form-label"
+        for="title">
+        <foundation:translate id="season:title" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textfield
+        class="form-control"
+        id="seasonNumber"
+        min="0"
+        placeholder="{foundation:translate(id: 'season:seasonNumber')}"
+        property="seasonNumber"
+        type="number" />
+    <label
+        class="form-label"
+        for="seasonNumber">
+        <foundation:translate id="season:seasonNumber" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textarea
+        class="form-control psbits-auto-size"
+        id="summary"
+        placeholder="{foundation:translate(id: 'season:summary')}"
+        property="summary" />
+    <label
+        class="form-label"
+        for="summary">
+        <foundation:translate id="season:summary" />
+    </label>
+</div>
+
+<f:form.hidden
+    id="series"
+    property="series"
+    value="{season.series}" />
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file datatype="plaintext"
+        date="2026-09-04T10:08:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="ctrl.title">
+                <source>Season</source>
+                <target>Staffel</target>
+            </trans-unit>
+            <trans-unit id="episodes">
+                <source>Episodes</source>
+                <target>Folgen</target>
+            </trans-unit>
+            <trans-unit id="seasonNumber">
+                <source>Season number</source>
+                <target>Nummer der Staffel</target>
+            </trans-unit>
+            <trans-unit id="series">
+                <source>Series</source>
+                <target>Serie</target>
+            </trans-unit>
+            <trans-unit id="summary">
+                <source>Summary</source>
+                <target>Inhaltsangabe</target>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

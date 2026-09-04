@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-04T12:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en">
+        <body>
+            <trans-unit id="backToList">
+                <source>Back to list</source>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="edit">
+                <source>Edit</source>
+            </trans-unit>
+            <trans-unit id="episodeNumber">
+                <source>Episode</source>
+            </trans-unit>
+            <trans-unit id="episodesHeadline">
+                <source>Episodes</source>
+            </trans-unit>
+            <trans-unit id="noEpisodes">
+                <source>There are no episodes yet.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

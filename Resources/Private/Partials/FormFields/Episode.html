@@ -1,0 +1,87 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers">
+<foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/episode.xlf" />
+
+<f:asset.script
+    identifier="autoSizeTextArea"
+    src="EXT:templates/Resources/Public/JavaScript/autoSizeTextArea.js"
+    type="module" />
+
+<div class="form-floating mb-3">
+    <f:form.textfield
+        class="form-control"
+        id="title"
+        placeholder="{foundation:translate(id: 'episode:title')}"
+        property="title"
+        required="true"
+        type="text" />
+    <label
+        class="form-label"
+        for="title">
+        <foundation:translate id="episode:title" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textfield
+        class="form-control"
+        id="episodeNumber"
+        min="0"
+        placeholder="{foundation:translate(id: 'episode:episodeNumber')}"
+        property="episodeNumber"
+        type="number" />
+    <label
+        class="form-label"
+        for="episodeNumber">
+        <foundation:translate id="episode:episodeNumber" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textfield
+        class="form-control"
+        id="releaseDate"
+        placeholder="{foundation:translate(id: 'episode:releaseDate')}"
+        property="releaseDate"
+        type="date"
+        value="{episode.releaseDate -> f:format.date(format: 'Y-m-d')}" />
+    <label
+        class="form-label"
+        for="releaseDate">
+        <foundation:translate id="episode:releaseDate" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textarea
+        class="form-control psbits-auto-size"
+        id="summary"
+        placeholder="{foundation:translate(id: 'episode:summary')}"
+        property="summary" />
+    <label
+        class="form-label"
+        for="summary">
+        <foundation:translate id="episode:summary" />
+    </label>
+</div>
+
+<div class="form-floating mb-3">
+    <f:form.textarea
+        class="form-control psbits-auto-size"
+        id="transcript"
+        placeholder="{foundation:translate(id: 'episode:transcript')}"
+        property="transcript" />
+    <label
+        class="form-label"
+        for="transcript">
+        <foundation:translate id="episode:transcript" />
+    </label>
+</div>
+
+<f:form.hidden
+    id="season"
+    property="season"
+    value="{episode.season}" />
+</html>

@@ -11,6 +11,9 @@ declare(strict_types=1);
 
 namespace PSBits\EpisodeGuide\Data;
 
+use PSBits\EpisodeGuide\Controller\EpisodeController;
+use PSBits\EpisodeGuide\Controller\SeasonController;
+use PSBits\EpisodeGuide\Controller\SeriesController;
 use PSBits\Foundation\Data\AbstractExtensionInformation;
 use PSBits\Foundation\Data\PluginConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

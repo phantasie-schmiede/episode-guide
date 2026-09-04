@@ -1,0 +1,44 @@
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers">
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/list.xlf" name="list" />
+
+    <f:if condition="{series}">
+        <f:then>
+            <ul class="list-group list-group-flush">
+                <f:for
+                    as="seriesItem"
+                    each="{series}">
+                    <f:link.action
+                        action="show"
+                        arguments="{series: seriesItem}"
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>{seriesItem.title}</span>
+                        <span class="badge rounded-pill text-bg-secondary">
+                            {seriesItem.seasons -> f:count()} <foundation:translate id="list:seasonsLabel" />
+                        </span>
+                    </f:link.action>
+                </f:for>
+            </ul>
+        </f:then>
+        <f:else>
+            <div class="alert alert-info">
+                <foundation:translate id="list:empty" />
+            </div>
+        </f:else>
+    </f:if>
+
+    <f:link.action
+        action="new"
+        class="bg-primary-subtle btn mt-3">
+        <core:icon
+            identifier="templates-plus-lg"
+            size="small" />
+        <foundation:translate id="list:create" />
+    </f:link.action>
+</f:section>
+</html>

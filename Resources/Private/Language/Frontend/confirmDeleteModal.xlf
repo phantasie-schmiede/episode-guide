@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-04T12:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en">
+        <body>
+            <trans-unit id="body">
+                <source>Really delete {name}?</source>
+            </trans-unit>
+            <trans-unit id="cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Confirm deletion</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
