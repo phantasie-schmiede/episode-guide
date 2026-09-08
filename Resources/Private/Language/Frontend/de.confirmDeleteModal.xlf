@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-08T09:49:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="body">
+                <source>Really delete {name}?</source>
+                <target>{name} wirklich löschen?</target>
+            </trans-unit>
+            <trans-unit id="cancel">
+                <source>Cancel</source>
+                <target>Abbrechen</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="title">
+                <source>Confirm deletion</source>
+                <target>Löschung bestätigen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

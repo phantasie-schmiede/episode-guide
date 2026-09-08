@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-08T09:49:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="addEpisode">
+                <source>Add episode</source>
+                <target>Folge hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="backToList">
+                <source>Back to list</source>
+                <target>Zurück zur Übersicht</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="edit">
+                <source>Edit</source>
+                <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="episodeNumber">
+                <source>Episode</source>
+                <target>Folge</target>
+            </trans-unit>
+            <trans-unit id="episodesHeadline">
+                <source>Episodes</source>
+                <target>Folgen</target>
+            </trans-unit>
+            <trans-unit id="noEpisodes">
+                <source>There are no episodes yet.</source>
+                <target>Es gibt noch keine Folgen.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

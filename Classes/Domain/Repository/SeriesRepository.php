@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace PSBits\EpisodeGuide\Domain\Repository;
 
 use PSBits\EpisodeGuide\Domain\Model\Series;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -22,4 +23,16 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class SeriesRepository extends Repository
 {
+    /**
+     * @return array<Series>
+     */
+    public function findAllOrderedByUid(): array
+    {
+        $query = $this->createQuery();
+        $query->setOrderings([
+            'uid' => QueryInterface::ORDER_ASCENDING,
+        ]);
+
+        return $query->execute()->toArray();
+    }
 }

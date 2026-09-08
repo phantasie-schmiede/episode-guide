@@ -35,4 +35,61 @@ class Series extends AbstractEntity
     #[Input]
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
+
+    public function __construct()
+    {
+        $this->seasons = new ObjectStorage();
+    }
+
+    public function addSeason(Season $season): self
+    {
+        $this->seasons->attach($season);
+
+        return $this;
+    }
+
+    /** @return ObjectStorage<Season> */
+    public function getSeasons(): ObjectStorage
+    {
+        return $this->seasons;
+    }
+
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function removeSeason(Season $season): self
+    {
+        $this->seasons->detach($season);
+
+        return $this;
+    }
+
+    /** @param ObjectStorage<Season> $seasons */
+    public function setSeasons(ObjectStorage $seasons): self
+    {
+        $this->seasons = $seasons;
+
+        return $this;
+    }
+
+    public function setSummary(string $summary): self
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 }

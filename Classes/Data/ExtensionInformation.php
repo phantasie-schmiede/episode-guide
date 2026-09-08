@@ -34,7 +34,7 @@ class ExtensionInformation extends AbstractExtensionInformation
                 controllers: [
                     EpisodeController::class,
                     SeasonController::class,
-                    SeriesController::class
+                    SeriesController::class,
                 ],
                 name       : 'AutocompleteList',
             )

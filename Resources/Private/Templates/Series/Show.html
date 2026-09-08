@@ -3,116 +3,132 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers"
     xmlns:templates="http://typo3.org/ns/PSBits/Templates/ViewHelpers">
-<f:layout name="Default" />
+    <f:layout name="Default" />
 
-<f:section name="Main">
-    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf" name="tca" />
-    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf" name="show" />
-    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf" name="modal" />
+    <f:section name="Main">
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf"
+            name="tca" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf"
+            name="show" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
+            name="modal" />
 
-    <div class="row">
-        <div class="col-12">
-            <h1>{series.title}</h1>
+        <div class="row">
+            <div class="col-12">
+                <h1>{series.title}</h1>
 
-            <dl class="row mb-4">
-                <dt class="col-sm-3"><foundation:translate id="tca:title" /></dt>
-                <dd class="col-sm-9">{series.title}</dd>
+                <dl class="mb-4 row">
+                    <dt class="col-sm-3"><foundation:translate id="tca:title" /></dt>
+                    <dd class="col-sm-9">{series.title}</dd>
 
-                <dt class="col-sm-3"><foundation:translate id="tca:summary" /></dt>
-                <dd class="col-sm-9">
-                    <f:if condition="{series.summary}">
-                        <f:then>{series.summary -> f:format.nl2br()}</f:then>
-                        <f:else>-</f:else>
-                    </f:if>
-                </dd>
+                    <dt class="col-sm-3"><foundation:translate id="tca:summary" /></dt>
+                    <dd class="col-sm-9">
+                        <f:if condition="{series.summary}">
+                            <f:then>{series.summary -> f:format.nl2br()}</f:then>
+                            <f:else>-</f:else>
+                        </f:if>
+                    </dd>
 
-                <dt class="col-sm-3"><foundation:translate id="tca:seasons" /></dt>
-                <dd class="col-sm-9">{series.seasons -> f:count()}</dd>
-            </dl>
+                    <dt class="col-sm-3"><foundation:translate id="tca:seasons" /></dt>
+                    <dd class="col-sm-9">{series.seasons -> f:count()}</dd>
+                </dl>
 
-            <h2 class="h4"><foundation:translate id="show:seasonsHeadline" /></h2>
-            <f:if condition="{series.seasons}">
-                <f:then>
-                    <ul class="list-group list-group-flush mb-0">
-                        <f:for
-                            as="season"
-                            each="{series.seasons}">
-                            <f:link.action
-                                action="show"
-                                arguments="{season: season}"
-                                controller="Season"
-                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                <span>{season.title}</span>
-                                <span class="text-body-secondary small">
-                                    <foundation:translate id="show:seasonNumber" /> {season.seasonNumber}
-                                </span>
-                            </f:link.action>
-                        </f:for>
-                    </ul>
-                </f:then>
-                <f:else>
-                    <div class="alert alert-info mb-0">
-                        <foundation:translate id="show:noSeasons" />
-                    </div>
-                </f:else>
-            </f:if>
+                <h2 class="h4"><foundation:translate id="show:seasonsHeadline" /></h2>
+                <f:if condition="{series.seasons}">
+                    <f:then>
+                        <ul class="list-group list-group-flush mb-0">
+                            <f:for
+                                as="season"
+                                each="{series.seasons}">
+                                <f:link.action
+                                    action="show"
+                                    arguments="{season: season}"
+                                    class="align-items-center d-flex justify-content-between list-group-item list-group-item-action"
+                                    controller="Season">
+                                    <span>{season.title}</span>
+                                    <span class="small text-body-secondary">
+                                        <foundation:translate id="show:seasonNumber" />
+                                        {season.seasonNumber}
+                                    </span>
+                                </f:link.action>
+                            </f:for>
+                        </ul>
+                    </f:then>
+                    <f:else>
+                        <div class="alert alert-info mb-0">
+                            <foundation:translate id="show:noSeasons" />
+                        </div>
+                    </f:else>
+                </f:if>
+            </div>
         </div>
-    </div>
 
-    <div class="d-flex mt-3">
-        <templates:component.button
-            additionalClasses="bg-secondary-subtle"
-            href="{f:uri.action(action: 'list')}"
-            iconIdentifier="templates-arrow-left"
-            label="{foundation:translate(id: 'show:backToList')}"
-            spinnerText="{foundation:translate(id: 'show:backToList')}"
-            tag="a" />
-        <templates:component.button
-            additionalClasses="bg-primary-subtle ms-2"
-            href="{f:uri.action(action: 'edit', arguments: '{series: series}')}"
-            iconIdentifier="templates-pencil"
-            label="{foundation:translate(id: 'show:edit')}"
-            spinnerText="{foundation:translate(id: 'show:edit')}"
-            tag="a" />
+        <div class="d-flex mt-3">
+            <templates:component.button
+                additionalClasses="bg-secondary-subtle"
+                href="{f:uri.action(action: 'list')}"
+                iconIdentifier="templates-arrow-left"
+                label="{foundation:translate(id: 'show:backToList')}"
+                spinnerText="{foundation:translate(id: 'show:backToList')}"
+                tag="a" />
+            <templates:component.button
+                additionalClasses="bg-primary-subtle ms-2"
+                href="{f:uri.action(action: 'edit', arguments: '{series: series}')}"
+                iconIdentifier="templates-pencil"
+                label="{foundation:translate(id: 'show:edit')}"
+                spinnerText="{foundation:translate(id: 'show:edit')}"
+                tag="a" />
+            <templates:component.button
+                additionalClasses="bg-success-subtle ms-2"
+                href="{f:uri.action(action: 'new', controller: 'Season', arguments: {newSeason: {series: series}})}"
+                iconIdentifier="templates-plus-lg"
+                label="{foundation:translate(id: 'show:addSeason')}"
+                spinnerText="{foundation:translate(id: 'show:addSeason')}"
+                tag="a" />
+
+            <f:render
+                arguments="{
+                    classes: 'bg-danger btn ms-auto',
+                    modalId: 'delete-series-{series.uid}-modal',
+                    text: '{templates:svgIcon(identifier: \'templates-trash\')} {foundation:translate(id: \'show:delete\')}',
+                    title: '{foundation:translate(id: \'show:delete\')}'
+                }"
+                partial="Component/Modal/Toggle" />
+        </div>
 
         <f:render
             arguments="{
-                classes: 'bg-danger btn ms-auto',
-                modalId: 'delete-series-{series.uid}-modal',
-                text: '{templates:svgIcon(identifier: \'templates-trash\')} {foundation:translate(id: \'show:delete\')}',
-                title: '{foundation:translate(id: \'show:delete\')}'
+                body: '{foundation:translate(arguments: {name: series.title}, id: \'modal:body\')}',
+                id: 'delete-series-{series.uid}-modal',
+                title: '{foundation:translate(id: \'modal:title\')}'
             }"
-            partial="Component/Modal/Toggle" />
-    </div>
+            contentAs="footer"
+            partial="Component/Modal/Dialog">
+            <f:render
+                arguments="{series: series}"
+                section="ModalFooter" />
+        </f:render>
+    </f:section>
 
-    <f:render
-        arguments="{
-            body: '{foundation:translate(arguments: {name: series.title}, id: \'modal:body\')}',
-            id: 'delete-series-{series.uid}-modal',
-            title: '{foundation:translate(id: \'modal:title\')}'
-        }"
-        contentAs="footer"
-        partial="Component/Modal/Dialog">
-        <f:render
+    <f:section name="ModalFooter">
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
+            name="modal" />
+
+        <button
+            class="bg-secondary-subtle btn"
+            data-bs-dismiss="modal"
+            type="button">
+            <foundation:translate id="modal:cancel" />
+        </button>
+        <f:link.action
+            action="delete"
             arguments="{series: series}"
-            section="ModalFooter" />
-    </f:render>
-</f:section>
-
-<f:section name="ModalFooter">
-    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf" name="modal" />
-
-    <button
-        class="bg-secondary-subtle btn"
-        data-bs-dismiss="modal"
-        type="button">
-        <foundation:translate id="modal:cancel" />
-    </button>
-    <f:link.action
-        action="delete"
-        arguments="{series: series}"
-        class="btn btn-danger">
-        <foundation:translate id="modal:delete" />
-    </f:link.action>
-</f:section>
+            class="btn btn-danger">
+            <foundation:translate id="modal:delete" />
+        </f:link.action>
+    </f:section>
 </html>

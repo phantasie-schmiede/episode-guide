@@ -14,7 +14,7 @@
                 <source>There are no series yet.</source>
             </trans-unit>
             <trans-unit id="seasonsLabel">
-                <source>seasons</source>
+                <source>Seasons</source>
             </trans-unit>
         </body>
     </file>

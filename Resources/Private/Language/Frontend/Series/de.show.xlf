@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-08T09:49:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="addSeason">
+                <source>Add season</source>
+                <target>Staffel hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="backToList">
+                <source>Back to list</source>
+                <target>Zurück zur Übersicht</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="edit">
+                <source>Edit</source>
+                <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="noSeasons">
+                <source>There are no seasons yet.</source>
+                <target>Es gibt noch keine Staffeln.</target>
+            </trans-unit>
+            <trans-unit id="seasonNumber">
+                <source>Season</source>
+                <target>Staffel</target>
+            </trans-unit>
+            <trans-unit id="seasonsHeadline">
+                <source>Seasons</source>
+                <target>Staffeln</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-08T09:48:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="create">
+                <source>Create series</source>
+                <target>Serie erstellen</target>
+            </trans-unit>
+            <trans-unit id="empty">
+                <source>There are no series yet.</source>
+                <target>Es gibt noch keine Serien.</target>
+            </trans-unit>
+            <trans-unit id="seasonsLabel">
+                <source>Seasons</source>
+                <target>Staffeln</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

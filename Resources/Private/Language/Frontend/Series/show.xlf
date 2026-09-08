@@ -7,6 +7,9 @@
         product-name="episode_guide"
         source-language="en">
         <body>
+            <trans-unit id="addSeason">
+                <source>Add season</source>
+            </trans-unit>
             <trans-unit id="backToList">
                 <source>Back to list</source>
             </trans-unit>

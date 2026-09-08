@@ -2,39 +2,38 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers">
-<foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf" />
+    <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf" />
 
-<f:asset.script
-    identifier="autoSizeTextArea"
-    src="EXT:templates/Resources/Public/JavaScript/autoSizeTextArea.js"
-    type="module" />
+    <f:asset.script
+        identifier="autoSizeTextArea"
+        src="EXT:templates/Resources/Public/JavaScript/autoSizeTextArea.js"
+        type="module" />
 
-<div class="form-floating mb-3">
-    <f:form.textfield
-        class="form-control"
-        id="title"
-        placeholder="{foundation:translate(id: 'series:title')}"
-        property="title"
-        required="true"
-        type="text" />
-    <label
-        class="form-label"
-        for="title">
-        <foundation:translate id="series:title" />
-    </label>
-</div>
+    <div class="form-floating mb-3">
+        <f:form.textfield
+            class="form-control"
+            id="title"
+            placeholder="{foundation:translate(id: 'series:title')}"
+            property="title"
+            required="true"
+            type="text" />
+        <label
+            class="form-label"
+            for="title">
+            <foundation:translate id="series:title" />
+        </label>
+    </div>
 
-<div class="form-floating mb-3">
-    <f:form.textarea
-        class="form-control psbits-auto-size"
-        id="summary"
-        placeholder="{foundation:translate(id: 'series:summary')}"
-        property="summary" />
-    <label
-        class="form-label"
-        for="summary">
-        <foundation:translate id="series:summary" />
-    </label>
-</div>
-
+    <div class="form-floating mb-3">
+        <f:form.textarea
+            class="form-control psbits-auto-size"
+            id="summary"
+            placeholder="{foundation:translate(id: 'series:summary')}"
+            property="summary" />
+        <label
+            class="form-label"
+            for="summary">
+            <foundation:translate id="series:summary" />
+        </label>
+    </div>
 </html>
