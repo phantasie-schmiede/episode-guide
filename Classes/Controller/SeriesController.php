@@ -11,13 +11,27 @@ declare(strict_types=1);
 
 namespace PSBits\EpisodeGuide\Controller;
 
+use JsonException;
+use PSBits\EpisodeGuide\Domain\Model\Episode;
+use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
+use PSBits\EpisodeGuide\Domain\Repository\EpisodeRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+
+use function array_slice;
+use function count;
+use function function_exists;
+use function is_array;
+use function is_bool;
+use function is_float;
+use function is_int;
+use function is_string;
+use function strlen;
 
 /**
  * Class SeriesController
@@ -27,7 +41,8 @@ use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 class SeriesController extends ActionController
 {
     public function __construct(
-        protected readonly SeriesRepository $seriesRepository,
+        protected readonly EpisodeRepository $episodeRepository,
+        protected readonly SeriesRepository  $seriesRepository,
     ) {
     }
 
@@ -75,6 +90,48 @@ class SeriesController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * @throws JsonException
+     */
+    public function searchAction(Series $series, int $page = 1, string $query = ''): ResponseInterface
+    {
+        $query          = trim($query);
+        $results        = [];
+        $hasSearched    = '' !== $query;
+        $resultsPerPage = 20;
+
+        if ($hasSearched) {
+            $terms = $this->parseSearchTerms($query);
+
+            if ([] !== $terms['positive'] || [] !== $terms['negative']) {
+                $episodes = $this->episodeRepository->findBySeriesOrderedBySeasonAndEpisodeNumber($series);
+
+                foreach ($episodes as $episode) {
+                    $result = $this->buildEpisodeSearchResult($episode, $terms['positive'], $terms['negative']);
+
+                    if (null !== $result) {
+                        $results[] = $result;
+                    }
+                }
+            }
+        }
+
+        $pagination   = $this->buildPagination(count($results), $page, $resultsPerPage);
+        $pagedResults = array_slice($results, $pagination['offset'], $resultsPerPage);
+
+        $this->view->assignMultiple([
+            'hasSearched'  => $hasSearched,
+            'pagination'   => $pagination,
+            'page'         => $pagination['currentPage'],
+            'query'        => $query,
+            'results'      => $pagedResults,
+            'series'       => $series,
+            'totalResults' => count($results),
+        ]);
+
+        return $this->htmlResponse();
+    }
+
     public function showAction(Series $series): ResponseInterface
     {
         $this->view->assign('series', $series);
@@ -92,5 +149,319 @@ class SeriesController extends ActionController
         $this->addFlashMessage('Series updated successfully.');
 
         return $this->redirect('list');
+    }
+
+    /**
+     * @param array<string> $negativeTerms
+     * @param array<string> $positiveTerms
+     *
+     * @return array<string, mixed>|null
+     * @throws JsonException
+     */
+    private function buildEpisodeSearchResult(Episode $episode, array $positiveTerms, array $negativeTerms): ?array
+    {
+        $title             = $episode->getTitle();
+        $summary           = $episode->getSummary();
+        $transcriptEntries = $this->extractTranscriptEntries($episode->getTranscript());
+
+        $haystacks = [
+            $title,
+            $summary,
+            $episode->getTranscript(),
+        ];
+
+        foreach ($transcriptEntries as $entry) {
+            $haystacks[] = $entry['text'];
+        }
+
+        if ($this->containsAnyTermsInAnyHaystack($haystacks, $negativeTerms)) {
+            return null;
+        }
+
+        if (!$this->containsAllTermsInAnyHaystack($haystacks, $positiveTerms)) {
+            return null;
+        }
+
+        $matches = [];
+
+        if ($this->containsAnyTerms($title, $positiveTerms)) {
+            $matches[] = [
+                'content'  => $this->highlightText($title, $positiveTerms),
+                'path'     => '',
+                'property' => 'title',
+            ];
+        }
+
+        if ('' !== trim($summary) && $this->containsAnyTerms($summary, $positiveTerms)) {
+            $matches[] = [
+                'content'  => $this->highlightText($summary, $positiveTerms),
+                'path'     => '',
+                'property' => 'summary',
+            ];
+        }
+
+        foreach ($transcriptEntries as $entry) {
+            if ($this->containsAnyTerms($entry['text'], $positiveTerms)) {
+                $matches[] = [
+                    'content'  => $this->highlightText($entry['text'], $positiveTerms),
+                    'path'     => $entry['path'],
+                    'property' => 'transcript',
+                ];
+            }
+        }
+
+        if ([] === $matches) {
+            $matches[] = [
+                'content'  => $this->highlightText($title, $positiveTerms),
+                'path'     => '',
+                'property' => 'title',
+            ];
+        }
+
+        $season       = $episode->getSeason();
+        $seasonNumber = null;
+        $seasonTitle  = '';
+
+        if ($season instanceof Season) {
+            $seasonNumber = $season->getSeasonNumber();
+            $seasonTitle  = $season->getTitle();
+        }
+
+        return [
+            'episode'      => $episode,
+            'matches'      => $matches,
+            'seasonNumber' => $seasonNumber,
+            'seasonTitle'  => $seasonTitle,
+        ];
+    }
+
+    /**
+     * @return array{
+     *     currentPage: int,
+     *     from: int,
+     *     hasNextPage: bool,
+     *     hasPreviousPage: bool,
+     *     nextPage: int,
+     *     offset: int,
+     *     previousPage: int,
+     *     to: int,
+     *     total: int,
+     *     totalPages: int
+     * }
+     */
+    private function buildPagination(int $totalResults, int $page, int $resultsPerPage): array
+    {
+        $safePerPage = max(1, $resultsPerPage);
+        $totalPages  = max(1, (int)ceil($totalResults / $safePerPage));
+        $currentPage = min(max(1, $page), $totalPages);
+        $offset      = ($currentPage - 1) * $safePerPage;
+
+        $from = 0;
+        $to   = 0;
+
+        if (0 < $totalResults) {
+            $from = $offset + 1;
+            $to   = min($offset + $safePerPage, $totalResults);
+        }
+
+        return [
+            'currentPage'     => $currentPage,
+            'from'            => $from,
+            'hasNextPage'     => $currentPage < $totalPages,
+            'hasPreviousPage' => 1 < $currentPage,
+            'nextPage'        => min($totalPages, $currentPage + 1),
+            'offset'          => $offset,
+            'previousPage'    => max(1, $currentPage - 1),
+            'to'              => $to,
+            'total'           => $totalResults,
+            'totalPages'      => $totalPages,
+        ];
+    }
+
+    /**
+     * @param array<string> $haystacks
+     * @param array<string> $terms
+     */
+    private function containsAllTermsInAnyHaystack(array $haystacks, array $terms): bool
+    {
+        foreach ($terms as $term) {
+            $isMatched = false;
+
+            foreach ($haystacks as $haystack) {
+                if ($this->containsTerm($haystack, $term)) {
+                    $isMatched = true;
+
+                    break;
+                }
+            }
+
+            if (!$isMatched) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param array<string> $terms
+     */
+    private function containsAnyTerms(string $haystack, array $terms): bool
+    {
+        foreach ($terms as $term) {
+            if ($this->containsTerm($haystack, $term)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array<string> $haystacks
+     * @param array<string> $terms
+     */
+    private function containsAnyTermsInAnyHaystack(array $haystacks, array $terms): bool
+    {
+        foreach ($haystacks as $haystack) {
+            if ($this->containsAnyTerms($haystack, $terms)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function containsTerm(string $haystack, string $term): bool
+    {
+        if (function_exists('mb_stripos')) {
+            return false !== mb_stripos($haystack, $term);
+        }
+
+        return false !== stripos($haystack, $term);
+    }
+
+    /**
+     * @return array<array{path: string, text: string}>
+     * @throws JsonException
+     */
+    private function extractTranscriptEntries(string $transcript): array
+    {
+        if ('' === trim($transcript)) {
+            return [];
+        }
+
+        $decoded = json_decode($transcript, true, 512, JSON_THROW_ON_ERROR);
+
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        return $this->flattenJsonValue($decoded, '$');
+    }
+
+    /**
+     * @return array<array{path: string, text: string}>
+     */
+    private function flattenJsonValue(mixed $value, string $path): array
+    {
+        if (is_array($value)) {
+            $entries = [];
+            $isList  = array_is_list($value);
+
+            foreach ($value as $key => $childValue) {
+                $childPath = $isList ? sprintf('%s[%d]', $path, (int)$key) : sprintf('%s.%s', $path, (string)$key);
+
+                foreach ($this->flattenJsonValue($childValue, $childPath) as $flattenedEntry) {
+                    $entries[] = $flattenedEntry;
+                }
+            }
+
+            return $entries;
+        }
+
+        if (is_bool($value)) {
+            return [
+                [
+                    'path' => $path,
+                    'text' => $value ? 'true' : 'false',
+                ],
+            ];
+        }
+
+        if (is_float($value) || is_int($value) || is_string($value)) {
+            $text = trim((string)$value);
+
+            return '' === $text ? [] : [
+                [
+                    'path' => $path,
+                    'text' => $text,
+                ],
+            ];
+        }
+
+        return [];
+    }
+
+    /**
+     * @param array<string> $positiveTerms
+     */
+    private function highlightText(string $text, array $positiveTerms): string
+    {
+        $escaped = htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+
+        if ([] === $positiveTerms) {
+            return nl2br($escaped);
+        }
+
+        $terms = array_values(array_unique($positiveTerms));
+        usort($terms, static fn(string $a, string $b): int => strlen($b) <=> strlen($a));
+
+        foreach ($terms as $term) {
+            $escapedTerm = htmlspecialchars($term, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+
+            if ('' === $escapedTerm) {
+                continue;
+            }
+
+            $pattern = '/' . preg_quote($escapedTerm, '/') . '/iu';
+            $escaped = preg_replace($pattern, '<mark>$0</mark>', $escaped);
+        }
+
+        return nl2br($escaped);
+    }
+
+    /**
+     * @return array{negative: array<string>, positive: array<string>}
+     */
+    private function parseSearchTerms(string $query): array
+    {
+        preg_match_all('/-?"[^"]+"|-?\S+/u', $query, $matches);
+
+        $positive = [];
+        $negative = [];
+
+        foreach ($matches[0] as $token) {
+            $isNegative = str_starts_with($token, '-');
+            $rawTerm    = $isNegative ? substr($token, 1) : $token;
+            $term       = trim($rawTerm, " \t\n\r\0\x0B\"");
+
+            if ('' === $term) {
+                continue;
+            }
+
+            if ($isNegative) {
+                $negative[] = $term;
+
+                continue;
+            }
+
+            $positive[] = $term;
+        }
+
+        return [
+            'negative' => array_values(array_unique($negative)),
+            'positive' => array_values(array_unique($positive)),
+        ];
     }
 }

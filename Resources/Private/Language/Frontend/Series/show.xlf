@@ -25,6 +25,9 @@
             <trans-unit id="seasonNumber">
                 <source>Season</source>
             </trans-unit>
+            <trans-unit id="search">
+                <source>Search episodes</source>
+            </trans-unit>
             <trans-unit id="seasonsHeadline">
                 <source>Seasons</source>
             </trans-unit>

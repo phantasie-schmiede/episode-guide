@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-08T12:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="backToSeries">
+                <source>Back to series</source>
+                <target>Zurück zur Serie</target>
+            </trans-unit>
+            <trans-unit id="episodeLabel">
+                <source>Episode</source>
+                <target>Folge</target>
+            </trans-unit>
+            <trans-unit id="headline">
+                <source>Search episodes in</source>
+                <target>Folgen suchen in</target>
+            </trans-unit>
+            <trans-unit id="help">
+                <source>Use quotes for exact phrases and prefix excluded terms with a minus, e.g. "exact phrase" -exclude.</source>
+                <target>Nutze Anführungszeichen für exakte Phrasen und ein vorangestelltes Minus für Ausschlüsse, z. B. "exakte Phrase" -ausschluss.</target>
+            </trans-unit>
+            <trans-unit id="inputPlaceholder">
+                <source>Search in title, summary and transcript</source>
+                <target>In Titel, Zusammenfassung und Transkript suchen</target>
+            </trans-unit>
+            <trans-unit id="matchGeneric">
+                <source>Match</source>
+                <target>Treffer</target>
+            </trans-unit>
+            <trans-unit id="matchSummary">
+                <source>Summary</source>
+                <target>Zusammenfassung</target>
+            </trans-unit>
+            <trans-unit id="matchTitle">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="matchTranscript">
+                <source>Transcript entry</source>
+                <target>Transkript-Eintrag</target>
+            </trans-unit>
+            <trans-unit id="noResults">
+                <source>No episodes matched the current query.</source>
+                <target>Keine Folgen passen zur aktuellen Suche.</target>
+            </trans-unit>
+            <trans-unit id="paginationNext">
+                <source>Next</source>
+                <target>Weiter</target>
+            </trans-unit>
+            <trans-unit id="paginationPage">
+                <source>Page {page} of {totalPages}</source>
+                <target>Seite {page} von {totalPages}</target>
+            </trans-unit>
+            <trans-unit id="paginationPrevious">
+                <source>Previous</source>
+                <target>Zurück</target>
+            </trans-unit>
+            <trans-unit id="resultsMeta">
+                <source>Showing {from}-{to} of {total}</source>
+                <target>Zeige {from}-{to} von {total}</target>
+            </trans-unit>
+            <trans-unit id="resultsHeadline">
+                <source>Search results</source>
+                <target>Suchergebnisse</target>
+            </trans-unit>
+            <trans-unit id="seasonLabel">
+                <source>Season</source>
+                <target>Staffel</target>
+            </trans-unit>
+            <trans-unit id="submit">
+                <source>Search</source>
+                <target>Suchen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

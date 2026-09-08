@@ -32,6 +32,10 @@
                 <source>Season</source>
                 <target>Staffel</target>
             </trans-unit>
+            <trans-unit id="search">
+                <source>Search episodes</source>
+                <target>Folgen suchen</target>
+            </trans-unit>
             <trans-unit id="seasonsHeadline">
                 <source>Seasons</source>
                 <target>Staffeln</target>

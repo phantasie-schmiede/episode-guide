@@ -9,9 +9,7 @@
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf"
             name="tca" />
-        <foundation:translation.registerLanguageFile
-            file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf"
-            name="show" />
+        <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf" />
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
             name="modal" />
@@ -88,6 +86,12 @@
                 label="{foundation:translate(id: 'show:addSeason')}"
                 spinnerText="{foundation:translate(id: 'show:addSeason')}"
                 tag="a" />
+            <f:link.action
+                action="search"
+                arguments="{series: series}"
+                class="bg-info-subtle btn ms-2">
+                <foundation:translate id="show:search" />
+            </f:link.action>
 
             <f:render
                 arguments="{
