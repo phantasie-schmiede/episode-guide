@@ -193,6 +193,14 @@ class SeriesController extends ActionController
             $episode->getTranscript(),
         ];
 
+        /*
+         * Temporary solution for the current transcript format. First element is the whole text, which is duplicated by
+         * the following diarized parts.
+         * This removes the large block of the complete transcript in the preview without affecting the result of the
+         * search.
+         */
+        array_shift($transcriptEntries);
+
         foreach ($transcriptEntries as $entry) {
             $haystacks[] = $entry['text'];
         }

@@ -65,7 +65,9 @@
         </div>
 
         <div class="d-flex mt-3">
-            <templates:component.button
+            <f:comment>
+                <!--
+                <templates:component.button
                 additionalClasses="bg-secondary-subtle"
                 href="{f:uri.action(action: 'list')}"
                 iconIdentifier="templates-arrow-left"
@@ -86,6 +88,9 @@
                 label="{foundation:translate(id: 'show:addSeason')}"
                 spinnerText="{foundation:translate(id: 'show:addSeason')}"
                 tag="a" />
+                -->
+            </f:comment>
+
             <f:link.action
                 action="search"
                 arguments="{series: series}"

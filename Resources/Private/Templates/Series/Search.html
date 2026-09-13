@@ -117,7 +117,11 @@
                                     <f:if condition="{pagination.hasPreviousPage}">
                                         <f:link.action
                                             action="search"
-                                            arguments="{series: series, q: query, page: pagination.previousPage}"
+                                            arguments="{
+                                                page: pagination.previousPage,
+                                                query: query,
+                                                series: series
+                                            }"
                                             class="btn btn-outline-secondary btn-sm"
                                             controller="Series">
                                             <foundation:translate id="search:paginationPrevious" />
@@ -133,7 +137,11 @@
                                     <f:if condition="{pagination.hasNextPage}">
                                         <f:link.action
                                             action="search"
-                                            arguments="{series: series, q: query, page: pagination.nextPage}"
+                                            arguments="{
+                                                page: pagination.nextPage,
+                                                query: query,
+                                                series: series
+                                            }"
                                             class="btn btn-outline-secondary btn-sm"
                                             controller="Series">
                                             <foundation:translate id="search:paginationNext" />
