@@ -30,6 +30,7 @@ class EpisodeRepository extends Repository
     public function findBySeriesOrderedBySeasonAndEpisodeNumber(Series $series): array
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('season.series', $series));
         $query->setOrderings([
             'season.seasonNumber' => QueryInterface::ORDER_ASCENDING,

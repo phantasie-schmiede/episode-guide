@@ -13,6 +13,7 @@ namespace PSBits\EpisodeGuide\Controller;
 
 use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
+use PSBits\Foundation\Attribute\PluginAction;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -34,25 +35,28 @@ class SeasonController extends ActionController
     /**
      * @throws IllegalObjectTypeException
      */
+    #[PluginAction(uncached: true)]
     public function createAction(Season $season): ResponseInterface
     {
         $this->seasonRepository->add($season);
         $this->addFlashMessage('Season created successfully.');
 
-        return $this->redirect('list');
+        return $this->redirectToSeries($season);
     }
 
     /**
      * @throws IllegalObjectTypeException
      */
+    #[PluginAction(uncached: true)]
     public function deleteAction(Season $season): ResponseInterface
     {
         $this->seasonRepository->remove($season);
         $this->addFlashMessage('Season deleted successfully.');
 
-        return $this->redirect('list');
+        return $this->redirectToSeries($season);
     }
 
+    #[PluginAction(uncached: true)]
     public function editAction(Season $season): ResponseInterface
     {
         $this->view->assign('season', $season);
@@ -61,6 +65,7 @@ class SeasonController extends ActionController
     }
 
     #[IgnoreValidation(['value' => 'newSeason'])]
+    #[PluginAction(uncached: true)]
     public function newAction(?Season $newSeason = null): ResponseInterface
     {
         $this->view->assign('season', $newSeason);
@@ -68,6 +73,7 @@ class SeasonController extends ActionController
         return $this->htmlResponse();
     }
 
+    #[PluginAction(default: true)]
     public function showAction(Season $season): ResponseInterface
     {
         $this->view->assign('season', $season);
@@ -79,11 +85,26 @@ class SeasonController extends ActionController
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
+    #[PluginAction(uncached: true)]
     public function updateAction(Season $season): ResponseInterface
     {
         $this->seasonRepository->update($season);
         $this->addFlashMessage('Season updated successfully.');
 
-        return $this->redirect('list');
+        return $this->redirectToSeries($season);
+    }
+
+    /**
+     * There is no list view for seasons. Therefore, the user is sent back to the series the season belongs to.
+     */
+    private function redirectToSeries(Season $season): ResponseInterface
+    {
+        $series = $season->getSeries();
+
+        if (null === $series) {
+            return $this->redirect('list', 'Series');
+        }
+
+        return $this->redirect('show', 'Series', null, ['series' => $series]);
     }
 }

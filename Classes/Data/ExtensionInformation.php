@@ -28,15 +28,20 @@ class ExtensionInformation extends AbstractExtensionInformation
     public function __construct()
     {
         parent::__construct();
+        /*
+         * The order of the controllers matters: the first one is used as default controller by Extbase. Together with
+         * SeriesController::showAction() being marked as #[PluginAction(default: true)] this makes the show view of the
+         * series selected in the FlexForm (Configuration/FlexForms/Series.xml) the default action of the plugin.
+         */
         $this->addPlugin(
             GeneralUtility::makeInstance(
                 PluginConfiguration::class,
                 controllers: [
-                    EpisodeController::class,
-                    SeasonController::class,
                     SeriesController::class,
+                    SeasonController::class,
+                    EpisodeController::class,
                 ],
-                name       : 'AutocompleteList',
+                name       : 'Series',
             )
         );
     }

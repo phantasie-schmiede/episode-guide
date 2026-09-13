@@ -17,6 +17,7 @@ use PSBits\Foundation\Attribute\TCA\ColumnType\Input;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Number;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Select;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Text;
+use PSBits\Foundation\Attribute\TCA\Ctrl;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
@@ -25,6 +26,16 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  *
  * @package PSBits\EpisodeGuide\Domain\Model
  */
+#[Ctrl(
+    defaultSortBy: 'episode_number ASC',
+    label        : 'title',
+    labelAlt     : ['episodeNumber'],
+    searchFields : [
+        'summary',
+        'title',
+        'transcript',
+    ],
+)]
 class Episode extends AbstractEntity
 {
     #[Number]

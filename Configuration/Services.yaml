@@ -7,3 +7,12 @@ services:
   PSBits\EpisodeGuide\:
     exclude: '../Classes/Domain/Model/*'
     resource: '../Classes/*'
+
+  # Explicit registration of the console command. The #[AsCommand] attribute alone relies on autoconfiguration and
+  # silently yields no command if the container is built without it. The tag guarantees the registration in TYPO3 13.
+  PSBits\EpisodeGuide\Command\ImportEpisodesCommand:
+    tags:
+      - name: 'console.command'
+        command: 'episode-guide:import-episodes'
+        description: 'Import episodes from JSON files into a selected season.'
+        schedulable: false

@@ -17,8 +17,10 @@ use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\EpisodeRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
+use PSBits\Foundation\Attribute\PluginAction;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -49,6 +51,7 @@ class SeriesController extends ActionController
     /**
      * @throws IllegalObjectTypeException
      */
+    #[PluginAction(uncached: true)]
     public function createAction(Series $series): ResponseInterface
     {
         $this->seriesRepository->add($series);
@@ -60,6 +63,7 @@ class SeriesController extends ActionController
     /**
      * @throws IllegalObjectTypeException
      */
+    #[PluginAction(uncached: true)]
     public function deleteAction(Series $series): ResponseInterface
     {
         $this->seriesRepository->remove($series);
@@ -68,6 +72,7 @@ class SeriesController extends ActionController
         return $this->redirect('list');
     }
 
+    #[PluginAction(uncached: true)]
     public function editAction(Series $series): ResponseInterface
     {
         $this->view->assign('series', $series);
@@ -75,6 +80,7 @@ class SeriesController extends ActionController
         return $this->htmlResponse();
     }
 
+    #[PluginAction]
     public function listAction(): ResponseInterface
     {
         $this->view->assign('series', $this->seriesRepository->findAll());
@@ -83,6 +89,7 @@ class SeriesController extends ActionController
     }
 
     #[IgnoreValidation(['value' => 'newSeries'])]
+    #[PluginAction(uncached: true)]
     public function newAction(?Series $newSeries = null): ResponseInterface
     {
         $this->view->assign('series', $newSeries);
@@ -93,6 +100,7 @@ class SeriesController extends ActionController
     /**
      * @throws JsonException
      */
+    #[PluginAction(uncached: true)]
     public function searchAction(Series $series, int $page = 1, string $query = ''): ResponseInterface
     {
         $query          = trim($query);
@@ -132,8 +140,22 @@ class SeriesController extends ActionController
         return $this->htmlResponse();
     }
 
-    public function showAction(Series $series): ResponseInterface
+    /**
+     * Default action of the plugin.
+     *
+     * If no series is passed via request, the series selected in the plugin's FlexForm is used. Without any usable
+     * series the action falls back to the list view.
+     */
+    #[IgnoreValidation(['value' => 'series'])]
+    #[PluginAction(default: true)]
+    public function showAction(?Series $series = null): ResponseInterface
     {
+        $series ??= $this->getConfiguredSeries();
+
+        if (!$series instanceof Series) {
+            return new ForwardResponse('list');
+        }
+
         $this->view->assign('series', $series);
 
         return $this->htmlResponse();
@@ -143,6 +165,7 @@ class SeriesController extends ActionController
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      */
+    #[PluginAction(uncached: true)]
     public function updateAction(Series $series): ResponseInterface
     {
         $this->seriesRepository->update($series);
@@ -401,6 +424,20 @@ class SeriesController extends ActionController
         }
 
         return [];
+    }
+
+    /**
+     * Returns the series that has been selected in the plugin's FlexForm.
+     */
+    private function getConfiguredSeries(): ?Series
+    {
+        $seriesUid = (int)($this->settings['series'] ?? 0);
+
+        if (0 >= $seriesUid) {
+            return null;
+        }
+
+        return $this->seriesRepository->findByUid($seriesUid);
     }
 
     /**

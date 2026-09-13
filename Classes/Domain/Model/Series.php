@@ -14,6 +14,7 @@ namespace PSBits\EpisodeGuide\Domain\Model;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Inline;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Input;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Text;
+use PSBits\Foundation\Attribute\TCA\Ctrl;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -23,6 +24,14 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  * @package PSBits\EpisodeGuide\Domain\Model
  */
+#[Ctrl(
+    defaultSortBy: 'title ASC',
+    label        : 'title',
+    searchFields : [
+        'summary',
+        'title',
+    ],
+)]
 class Series extends AbstractEntity
 {
     /** @var ObjectStorage<Season> */

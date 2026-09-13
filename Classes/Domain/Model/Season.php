@@ -16,6 +16,7 @@ use PSBits\Foundation\Attribute\TCA\ColumnType\Input;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Number;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Select;
 use PSBits\Foundation\Attribute\TCA\ColumnType\Text;
+use PSBits\Foundation\Attribute\TCA\Ctrl;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -24,6 +25,15 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  * @package PSBits\EpisodeGuide\Domain\Model
  */
+#[Ctrl(
+    defaultSortBy: 'season_number ASC',
+    label        : 'title',
+    labelAlt     : ['seasonNumber'],
+    searchFields : [
+        'summary',
+        'title',
+    ],
+)]
 class Season extends AbstractEntity
 {
     /** @var ObjectStorage<Episode> */
