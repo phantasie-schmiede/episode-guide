@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-13T10:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="sheet.general">
+                <source>General</source>
+                <target>Allgemein</target>
+            </trans-unit>
+            <trans-unit id="settings.series">
+                <source>Series</source>
+                <target>Serie</target>
+            </trans-unit>
+            <trans-unit id="settings.series.description">
+                <source>The selected series is shown by the plugin. If no series is selected, a list of all series is displayed.</source>
+                <target>Die ausgewählte Serie wird vom Plugin angezeigt. Ohne Auswahl wird eine Liste aller Serien ausgegeben.</target>
+            </trans-unit>
+            <trans-unit id="settings.series.none">
+                <source>- show all series -</source>
+                <target>- alle Serien anzeigen -</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

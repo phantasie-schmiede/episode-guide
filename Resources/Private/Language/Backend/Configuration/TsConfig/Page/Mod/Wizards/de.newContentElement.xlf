@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file
+        datatype="plaintext"
+        date="2026-09-13T10:00:00+01:00"
+        original="messages"
+        product-name="episode_guide"
+        source-language="en"
+        target-language="de">
+        <body>
+            <trans-unit id="psbits.header">
+                <source>PSBits</source>
+                <target>PSBits</target>
+            </trans-unit>
+            <trans-unit id="psbits.elements.series.title">
+                <source>Episode Guide: Series</source>
+                <target>Episodenführer: Serie</target>
+            </trans-unit>
+            <trans-unit id="psbits.elements.series.description">
+                <source>Shows a selectable series including its seasons and episodes.</source>
+                <target>Zeigt eine auswählbare Serie inklusive ihrer Staffeln und Episoden an.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
