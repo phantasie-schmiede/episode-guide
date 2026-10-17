@@ -43,9 +43,9 @@
     ],
     "require": {
         "php": "^8.3",
-        "psbits/foundation": "@dev",
+        "psbits/foundation": "^4.0",
         "psbits/templates": "@dev",
-        "typo3/cms-core": "^13.4"
+        "typo3/cms-core": "^13.4 || ^14.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
