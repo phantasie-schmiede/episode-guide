@@ -35,25 +35,27 @@
     ],
     "license": "GPL-3.0-or-later",
     "name": "psbits/episode-guide",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:phantasie-schmiede/templates.git"
-        }
-    ],
     "require": {
         "php": "^8.3",
         "psbits/foundation": "^4.0",
         "psbits/templates": "@dev",
+        "psbits/view-helpers": "@dev",
         "typo3/cms-core": "^13.4 || ^14.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
         "helmich/typo3-typoscript-lint": "^3.3",
         "phpstan/phpstan": "^2.2",
+        "psbits/qa": "@dev",
         "roave/security-advisories": "dev-latest",
         "saschaegerer/phpstan-typo3": "^2.1"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:phantasie-schmiede/templates.git"
+        }
+    ],
     "scripts": {
         "analyze:php": "phpstan analyse --configuration=Build/Quality/phpstan.neon.dist --no-progress",
         "audit:composer": "composer audit --abandoned=report",
@@ -78,11 +80,14 @@
         "lint:classes": "npm run lint:classes",
         "lint:htmlxml": "npm run lint:htmlxml",
         "lint:php": "php-cs-fixer fix --config=Build/Quality/.php-cs-fixer.dist.php --dry-run --diff --verbose",
-        "lint:typoscript": "typoscript-lint --config=Build/Quality/typoscript-lint.yml --ansi Configuration/TypoScript",
-        "lint:yaml": "yamllint -c Build/Quality/.yamllint.yml Configuration",
+        "lint:typoscript": "typoscript-lint --config=.Build/vendor/psbits/qa/Resources/Quality/typoscript-lint.yml --ansi Configuration/TypoScript",
+        "lint:yaml": "yamllint -c .Build/vendor/psbits/qa/Resources/Quality/yamllint.yml Configuration",
         "post-install-cmd": [
             "npm install",
-            "cp Build/GitHooks/pre-commit .git/hooks/pre-commit"
+            ".Build/bin/qa link"
+        ],
+        "post-update-cmd": [
+            ".Build/bin/qa link"
         ],
         "qa": [
             "@fix:all",
