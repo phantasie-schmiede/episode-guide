@@ -9,7 +9,8 @@
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/episode.xlf"
             name="tca" />
-        <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Episode/show.xlf" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/Episode/show.xlf" />
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
             name="modal" />
@@ -19,13 +20,19 @@
                 <h1>{episode.title}</h1>
 
                 <dl class="mb-0 row">
-                    <dt class="col-sm-3"><foundation:translate id="tca:title" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:title" />
+                    </dt>
                     <dd class="col-sm-9">{episode.title}</dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:episodeNumber" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:episodeNumber" />
+                    </dt>
                     <dd class="col-sm-9">{episode.episodeNumber}</dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:season" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:season" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{episode.season}">
                             <f:then>
@@ -40,26 +47,39 @@
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:releaseDate" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:releaseDate" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{episode.releaseDate}">
-                            <f:then>{episode.releaseDate -> f:format.date(format: 'd.m.Y')}</f:then>
+                            <f:then>
+                                {episode.releaseDate -> f:format.date(format:
+                                'd.m.Y')}
+                            </f:then>
                             <f:else>-</f:else>
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:summary" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:summary" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{episode.summary}">
-                            <f:then>{episode.summary -> f:format.nl2br()}</f:then>
+                            <f:then>
+                                {episode.summary -> f:format.nl2br()}
+                            </f:then>
                             <f:else>-</f:else>
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:transcript" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:transcript" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{episode.transcript}">
-                            <f:then>{episode.transcript -> f:format.nl2br()}</f:then>
+                            <f:then>
+                                {episode.transcript -> f:format.nl2br()}
+                            </f:then>
                             <f:else>-</f:else>
                         </f:if>
                     </dd>

@@ -9,7 +9,8 @@
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/season.xlf"
             name="tca" />
-        <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Season/show.xlf" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/Season/show.xlf" />
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
             name="modal" />
@@ -19,13 +20,19 @@
                 <h1>{season.title}</h1>
 
                 <dl class="mb-4 row">
-                    <dt class="col-sm-3"><foundation:translate id="tca:title" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:title" />
+                    </dt>
                     <dd class="col-sm-9">{season.title}</dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:seasonNumber" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:seasonNumber" />
+                    </dt>
                     <dd class="col-sm-9">{season.seasonNumber}</dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:series" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:series" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{season.series}">
                             <f:then>
@@ -40,19 +47,27 @@
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:summary" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:summary" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{season.summary}">
-                            <f:then>{season.summary -> f:format.nl2br()}</f:then>
+                            <f:then>
+                                {season.summary -> f:format.nl2br()}
+                            </f:then>
                             <f:else>-</f:else>
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:episodes" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:episodes" />
+                    </dt>
                     <dd class="col-sm-9">{season.episodes -> f:count()}</dd>
                 </dl>
 
-                <h2 class="h4"><foundation:translate id="show:episodesHeadline" /></h2>
+                <h2 class="h4">
+                    <foundation:translate id="show:episodesHeadline" />
+                </h2>
 
                 <f:if condition="{season.episodes}">
                     <f:then>
@@ -67,7 +82,8 @@
                                     controller="Episode">
                                     <span>{episode.title}</span>
                                     <span class="small text-body-secondary">
-                                        <foundation:translate id="show:episodeNumber" />
+                                        <foundation:translate
+                                            id="show:episodeNumber" />
                                         {episode.episodeNumber}
                                     </span>
                                 </f:link.action>

@@ -6,7 +6,8 @@
     <f:layout name="Default" />
 
     <f:section name="Main">
-        <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/search.xlf" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/search.xlf" />
 
         <div class="row">
             <div class="col-12">
@@ -43,8 +44,11 @@
                 </f:form>
 
                 <f:if condition="{hasSearched}">
-                    <div class="align-items-center d-flex justify-content-between">
-                        <h2 class="h4 mb-0"><foundation:translate id="search:resultsHeadline" /></h2>
+                    <div
+                        class="align-items-center d-flex justify-content-between">
+                        <h2 class="h4 mb-0">
+                            <foundation:translate id="search:resultsHeadline" />
+                        </h2>
 
                         <f:if condition="{totalResults}">
                             <span class="small text-body-secondary">
@@ -62,7 +66,8 @@
                                     as="result"
                                     each="{results}">
                                     <div class="list-group-item py-3">
-                                        <div class="align-items-baseline d-flex justify-content-between">
+                                        <div
+                                            class="align-items-baseline d-flex justify-content-between">
                                             <f:link.action
                                                 action="show"
                                                 arguments="{episode: result.episode}"
@@ -70,20 +75,29 @@
                                                 controller="Episode">
                                                 {result.episode.title}
                                             </f:link.action>
-                                            <span class="small text-body-secondary">
-                                                <foundation:translate id="search:seasonLabel" />
-                                                <f:if condition="{result.seasonNumber}">
-                                                    <f:then>{result.seasonNumber}</f:then>
+                                            <span
+                                                class="small text-body-secondary">
+                                                <foundation:translate
+                                                    id="search:seasonLabel" />
+                                                <f:if
+                                                    condition="{result.seasonNumber}">
+                                                    <f:then>
+                                                        {result.seasonNumber}
+                                                    </f:then>
                                                     <f:else>0</f:else>
                                                 </f:if>
                                                 -
-                                                <foundation:translate id="search:episodeLabel" />
+                                                <foundation:translate
+                                                    id="search:episodeLabel" />
                                                 {result.episode.episodeNumber}
                                             </span>
                                         </div>
 
                                         <f:if condition="{result.seasonTitle}">
-                                            <div class="mb-2 small text-body-secondary">{result.seasonTitle}</div>
+                                            <div
+                                                class="mb-2 small text-body-secondary">
+                                                {result.seasonTitle}
+                                            </div>
                                         </f:if>
 
                                         <f:for
@@ -91,20 +105,40 @@
                                             each="{result.matches}">
                                             <div class="mb-2">
                                                 <strong>
-                                                    <f:switch expression="{match.property}">
-                                                        <f:case value="title"><foundation:translate id="search:matchTitle" /></f:case>
-                                                        <f:case value="summary"><foundation:translate id="search:matchSummary" /></f:case>
-                                                        <f:case value="transcript"><foundation:translate id="search:matchTranscript" /></f:case>
-                                                        <f:defaultCase><foundation:translate id="search:matchGeneric" /></f:defaultCase>
+                                                    <f:switch
+                                                        expression="{match.property}">
+                                                        <f:case value="title">
+                                                            <foundation:translate
+                                                                id="search:matchTitle" />
+                                                        </f:case>
+                                                        <f:case value="summary">
+                                                            <foundation:translate
+                                                                id="search:matchSummary" />
+                                                        </f:case>
+                                                        <f:case
+                                                            value="transcript">
+                                                            <foundation:translate
+                                                                id="search:matchTranscript" />
+                                                        </f:case>
+                                                        <f:defaultCase>
+                                                            <foundation:translate
+                                                                id="search:matchGeneric" />
+                                                        </f:defaultCase>
                                                     </f:switch>
                                                 </strong>
 
                                                 <f:if condition="{match.path}">
-                                                    <span class="badge rounded-pill text-bg-light">{match.path}</span>
+                                                    <span
+                                                        class="badge rounded-pill text-bg-light">
+                                                        {match.path}
+                                                    </span>
                                                 </f:if>
 
-                                                <div class="mt-1 small text-body-secondary">
-                                                    <f:format.raw>{match.content}</f:format.raw>
+                                                <div
+                                                    class="mt-1 small text-body-secondary">
+                                                    <f:format.raw>
+                                                        {match.content}
+                                                    </f:format.raw>
                                                 </div>
                                             </div>
                                         </f:for>
@@ -113,8 +147,10 @@
                             </div>
 
                             <f:if condition="{pagination.totalPages} > 1">
-                                <div class="align-items-center d-flex gap-2 mt-3">
-                                    <f:if condition="{pagination.hasPreviousPage}">
+                                <div
+                                    class="align-items-center d-flex gap-2 mt-3">
+                                    <f:if
+                                        condition="{pagination.hasPreviousPage}">
                                         <f:link.action
                                             action="search"
                                             arguments="{
@@ -124,7 +160,8 @@
                                             }"
                                             class="btn btn-outline-secondary btn-sm"
                                             controller="Series">
-                                            <foundation:translate id="search:paginationPrevious" />
+                                            <foundation:translate
+                                                id="search:paginationPrevious" />
                                         </f:link.action>
                                     </f:if>
 
@@ -144,7 +181,8 @@
                                             }"
                                             class="btn btn-outline-secondary btn-sm"
                                             controller="Series">
-                                            <foundation:translate id="search:paginationNext" />
+                                            <foundation:translate
+                                                id="search:paginationNext" />
                                         </f:link.action>
                                     </f:if>
                                 </div>

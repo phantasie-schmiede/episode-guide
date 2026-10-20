@@ -6,7 +6,8 @@
     <f:layout name="Default" />
 
     <f:section name="Main">
-        <foundation:translation.registerLanguageFile file="EXT:templates/Resources/Private/Language/Frontend/form.xlf" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:templates/Resources/Private/Language/Frontend/form.xlf" />
 
         <f:form
             action="create"
@@ -24,7 +25,8 @@
                 <f:link.action
                     action="list"
                     class="align-items-center bg-secondary-subtle btn d-flex">
-                    {templates:svgIcon(additionalClasses: 'me-2', identifier: 'templates-x-lg')}{foundation:translate(id: 'form:cancel')}
+                    {templates:svgIcon(additionalClasses: 'me-2', identifier:
+                    'templates-x-lg')}{foundation:translate(id: 'form:cancel')}
                 </f:link.action>
                 <templates:component.button
                     additionalClasses="bg-primary-subtle ms-2"

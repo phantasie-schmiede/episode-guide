@@ -9,7 +9,8 @@
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Backend/Configuration/TCA/series.xlf"
             name="tca" />
-        <foundation:translation.registerLanguageFile file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf" />
+        <foundation:translation.registerLanguageFile
+            file="EXT:episode_guide/Resources/Private/Language/Frontend/Series/show.xlf" />
         <foundation:translation.registerLanguageFile
             file="EXT:episode_guide/Resources/Private/Language/Frontend/confirmDeleteModal.xlf"
             name="modal" />
@@ -19,22 +20,32 @@
                 <h1>{series.title}</h1>
 
                 <dl class="mb-4 row">
-                    <dt class="col-sm-3"><foundation:translate id="tca:title" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:title" />
+                    </dt>
                     <dd class="col-sm-9">{series.title}</dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:summary" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:summary" />
+                    </dt>
                     <dd class="col-sm-9">
                         <f:if condition="{series.summary}">
-                            <f:then>{series.summary -> f:format.nl2br()}</f:then>
+                            <f:then>
+                                {series.summary -> f:format.nl2br()}
+                            </f:then>
                             <f:else>-</f:else>
                         </f:if>
                     </dd>
 
-                    <dt class="col-sm-3"><foundation:translate id="tca:seasons" /></dt>
+                    <dt class="col-sm-3">
+                        <foundation:translate id="tca:seasons" />
+                    </dt>
                     <dd class="col-sm-9">{series.seasons -> f:count()}</dd>
                 </dl>
 
-                <h2 class="h4"><foundation:translate id="show:seasonsHeadline" /></h2>
+                <h2 class="h4">
+                    <foundation:translate id="show:seasonsHeadline" />
+                </h2>
                 <f:if condition="{series.seasons}">
                     <f:then>
                         <ul class="list-group list-group-flush mb-0">
@@ -48,7 +59,8 @@
                                     controller="Season">
                                     <span>{season.title}</span>
                                     <span class="small text-body-secondary">
-                                        <foundation:translate id="show:seasonNumber" />
+                                        <foundation:translate
+                                            id="show:seasonNumber" />
                                         {season.seasonNumber}
                                     </span>
                                 </f:link.action>
