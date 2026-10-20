@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace PSBits\EpisodeGuide\Domain\Repository;
 
-use PSBits\Debug\Utility\QueryUtility;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
