@@ -80,7 +80,7 @@ PHP namespace: `PSBits\EpisodeGuide\`.
 - Fluid templates commonly use namespaces:
     - `f` (`TYPO3/CMS/Fluid/ViewHelpers`)
     - `foundation` (`PSBits/Foundation/ViewHelpers`)
-    - `templates` (`PSBits/Templates/ViewHelpers`)
+    - `frontendTemplates` (`PSBits/FrontendTemplates/ViewHelpers`)
     - `viewHelpers` (`PSBits/ViewHelpers/ViewHelpers`)
 - Don't add empty variable initializations in Fluid templates. They are unnecessary as Fluid will treat undefined
   variables as `null` and render nothing.
