@@ -17,12 +17,12 @@ use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
+use PSBits\Qa\Testing\Support\PersistenceSupportTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 use function file_put_contents;
@@ -40,6 +40,8 @@ use function uniqid;
  */
 class ImportEpisodesCommandTest extends FunctionalTestCase
 {
+    use PersistenceSupportTrait;
+
     private const string EPISODE_TABLE = 'tx_episodeguide_domain_model_episode';
 
     protected array $testExtensionsToLoad = [
@@ -141,9 +143,8 @@ class ImportEpisodesCommandTest extends FunctionalTestCase
      */
     private function provideSeriesAndSeason(): int
     {
-        $seriesRepository   = GeneralUtility::makeInstance(SeriesRepository::class);
-        $seasonRepository   = GeneralUtility::makeInstance(SeasonRepository::class);
-        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
+        $seriesRepository = GeneralUtility::makeInstance(SeriesRepository::class);
+        $seasonRepository = GeneralUtility::makeInstance(SeasonRepository::class);
 
         $series = new Series();
         $series->setTitle('Test Series');
@@ -156,8 +157,7 @@ class ImportEpisodesCommandTest extends FunctionalTestCase
         $season->setPid(1);
         $seasonRepository->add($season);
 
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         self::assertNotNull($season->getUid());
 

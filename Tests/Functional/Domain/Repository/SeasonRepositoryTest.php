@@ -16,8 +16,8 @@ use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
+use PSBits\Qa\Testing\Support\PersistenceSupportTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -27,6 +27,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class SeasonRepositoryTest extends FunctionalTestCase
 {
+    use PersistenceSupportTrait;
+
     protected array $testExtensionsToLoad = [
         'typo3/sysext/fluid_styled_content',
         'typo3conf/ext/psbits/episode-guide',
@@ -41,15 +43,13 @@ class SeasonRepositoryTest extends FunctionalTestCase
     #[Test]
     public function seasonsOfASeriesAreFoundInAscendingSeasonNumberOrder(): void
     {
-        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
-        $seriesRepository   = GeneralUtility::makeInstance(SeriesRepository::class);
+        $seriesRepository = GeneralUtility::makeInstance(SeriesRepository::class);
 
         $seriesA = $this->createSeries('Alpha Series');
         $seriesB = $this->createSeries('Beta Series');
         $seriesRepository->add($seriesA);
         $seriesRepository->add($seriesB);
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         $seasonRepository = GeneralUtility::makeInstance(SeasonRepository::class);
 
@@ -58,8 +58,7 @@ class SeasonRepositoryTest extends FunctionalTestCase
         $seasonRepository->add($this->createSeason($seriesA, 1, 'First Season'));
         $seasonRepository->add($this->createSeason($seriesA, 2, 'Second Season'));
         $seasonRepository->add($this->createSeason($seriesB, 1, 'Foreign Season'));
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         $seasons = $seasonRepository->findBySeriesOrderedBySeasonNumber($seriesA);
 

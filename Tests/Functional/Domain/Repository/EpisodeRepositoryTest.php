@@ -18,8 +18,8 @@ use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\EpisodeRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
+use PSBits\Qa\Testing\Support\PersistenceSupportTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -29,6 +29,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class EpisodeRepositoryTest extends FunctionalTestCase
 {
+    use PersistenceSupportTrait;
+
     protected array $testExtensionsToLoad = [
         'typo3/sysext/fluid_styled_content',
         'typo3conf/ext/psbits/episode-guide',
@@ -43,7 +45,6 @@ class EpisodeRepositoryTest extends FunctionalTestCase
     #[Test]
     public function episodesOfASeriesAreFoundOrderedBySeasonAndEpisodeNumber(): void
     {
-        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
         $seriesRepository   = GeneralUtility::makeInstance(SeriesRepository::class);
         $seasonRepository   = GeneralUtility::makeInstance(SeasonRepository::class);
         $episodeRepository  = GeneralUtility::makeInstance(EpisodeRepository::class);
@@ -52,8 +53,7 @@ class EpisodeRepositoryTest extends FunctionalTestCase
         $seriesB = $this->createSeries('Beta Series');
         $seriesRepository->add($seriesA);
         $seriesRepository->add($seriesB);
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         $seasonA = $this->createSeason($seriesA, 1, 'First Season');
         $seasonB = $this->createSeason($seriesA, 2, 'Second Season');
@@ -61,8 +61,7 @@ class EpisodeRepositoryTest extends FunctionalTestCase
         $seasonRepository->add($seasonA);
         $seasonRepository->add($seasonB);
         $seasonRepository->add($seasonC);
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         // Deliberately insert in scrambled order.
         $episodeA2 = $this->createEpisode($seasonA, 2, 'Alpha Episode Two');
@@ -73,8 +72,7 @@ class EpisodeRepositoryTest extends FunctionalTestCase
         $episodeRepository->add($episodeA1);
         $episodeRepository->add($episodeB1);
         $episodeRepository->add($episodeC1);
-        $persistenceManager->persistAll();
-        $persistenceManager->clearState();
+        $this->persistAll();
 
         $episodes = $episodeRepository->findBySeriesOrderedBySeasonAndEpisodeNumber($seriesA);
 
