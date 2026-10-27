@@ -16,7 +16,6 @@ use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
-use PSBits\EpisodeGuide\Tests\Functional\Utility\TemplatesBootState;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -32,16 +31,9 @@ class SeasonRepositoryTest extends FunctionalTestCase
         'typo3/sysext/fluid_styled_content',
         'typo3conf/ext/psbits/episode-guide',
         'typo3conf/ext/psbits/foundation',
-        'typo3conf/ext/psbits/templates',
+        'typo3conf/ext/psbits/frontend-templates',
         'typo3conf/ext/psbits/view-helpers',
     ];
-
-    protected function setUp(): void
-    {
-        TemplatesBootState::resetMainTemplatesSettingsSources();
-
-        parent::setUp();
-    }
 
     /**
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException

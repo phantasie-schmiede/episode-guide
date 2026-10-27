@@ -13,7 +13,6 @@ namespace PSBits\EpisodeGuide\Tests\Functional\Domain\Repository;
 
 use PHPUnit\Framework\Attributes\Test;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
-use PSBits\EpisodeGuide\Tests\Functional\Utility\TemplatesBootState;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -31,16 +30,9 @@ class SeriesRepositoryTest extends FunctionalTestCase
         'typo3/sysext/fluid_styled_content',
         'typo3conf/ext/psbits/episode-guide',
         'typo3conf/ext/psbits/foundation',
-        'typo3conf/ext/psbits/templates',
+        'typo3conf/ext/psbits/frontend-templates',
         'typo3conf/ext/psbits/view-helpers',
     ];
-
-    protected function setUp(): void
-    {
-        TemplatesBootState::resetMainTemplatesSettingsSources();
-
-        parent::setUp();
-    }
 
     #[Test]
     public function seriesAreFoundInAscendingUidOrder(): void

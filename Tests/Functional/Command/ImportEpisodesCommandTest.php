@@ -17,7 +17,6 @@ use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Model\Series;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
-use PSBits\EpisodeGuide\Tests\Functional\Utility\TemplatesBootState;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use TYPO3\CMS\Core\Core\Environment;
@@ -47,18 +46,11 @@ class ImportEpisodesCommandTest extends FunctionalTestCase
         'typo3/sysext/fluid_styled_content',
         'typo3conf/ext/psbits/episode-guide',
         'typo3conf/ext/psbits/foundation',
-        'typo3conf/ext/psbits/templates',
+        'typo3conf/ext/psbits/frontend-templates',
         'typo3conf/ext/psbits/view-helpers',
     ];
 
     private ?string $importDirectory = null;
-
-    protected function setUp(): void
-    {
-        TemplatesBootState::resetMainTemplatesSettingsSources();
-
-        parent::setUp();
-    }
 
     protected function tearDown(): void
     {
