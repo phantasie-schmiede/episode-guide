@@ -73,6 +73,23 @@ PHP namespace: `PSBits\EpisodeGuide\`.
 - `Resources/Private/Templates|Partials|Layouts/` — Fluid templates.
 - `ext_localconf.php` — general configuration like caching.
 
+## Foundation integration
+
+This extension builds on `psbits/foundation`, so it deliberately deviates from the standard TYPO3
+layout. Full conventions: `psbits-foundation` skill (`.opencode/skills/psbits-foundation/SKILL.md`).
+
+- TCA is generated at boot from the `#[Ctrl]`/`#[Column]` attributes in `Classes/Domain/Model/` -
+  there are no `Configuration/TCA/<table>.php` files for own models; do not create them.
+- The database schema is derived from those TCA attributes - there is no `ext_tables.sql`; do not
+  create one.
+- The plugin is registered in `Classes/Data/ExtensionInformation.php` (`addPlugin()`); the FlexForm
+  is auto-registered from `Configuration/FlexForms/Series.xml` - no registration code needed. No
+  `ext_localconf.php` is needed.
+- `Classes/Command/ImportEpisodesCommand.php` is registered via the `#[AsCommand]` attribute.
+- Default TCA labels belong in `Resources/Private/Language/Backend/Configuration/TCA/[modelName].xlf`
+  (keys: `ctrl.title`, `<property>`, `<property>.description`, `palette.*`, `tab.*`); FlexForm
+  labels in `Resources/Private/Language/Backend/Configuration/FlexForms/[formName].xlf`.
+
 ## Architecture and conventions
 
 - Strongly typed PHP (`declare(strict_types=1);`) is standard for classes.
@@ -101,7 +118,8 @@ inconsistencies between the codebase and these instructions, mention them - don'
 
 ## Validation
 
-Repository quality checks are defined in `composer.json`, `package.json`, and `.github/workflows/quality.yml`.
+Repository quality checks are defined in `composer.json`, `package.json`, and the shared `CI`
+GitHub Actions workflow (`.github/workflows/ci.yml`).
 Quality configuration files are centralized in `Build/Quality/` and referenced by Composer/NPM scripts and CI.
 
 - Primary local QA command: `composer lint:all` (runs `audit:composer`, `validate:composer`, `lint:php`,
