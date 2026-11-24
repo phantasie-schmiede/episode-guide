@@ -2,7 +2,7 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers"
-    xmlns:templates="http://typo3.org/ns/PSBits/Templates/ViewHelpers">
+    xmlns:frontendTemplates="http://typo3.org/ns/PSBits/FrontendTemplates/ViewHelpers">
     <f:layout name="Default" />
 
     <f:section name="Main">
@@ -114,7 +114,7 @@
                 arguments="{
                     classes: 'bg-danger btn ms-auto',
                     modalId: 'delete-series-{series.uid}-modal',
-                    text: '{templates:svgIcon(identifier: \'templates-trash\')} {foundation:translate(id: \'show:delete\')}',
+                    text: '{frontendTemplates:svgIcon(identifier: \'templates-trash\')} {foundation:translate(id: \'show:delete\')}',
                     title: '{foundation:translate(id: \'show:delete\')}'
                 }"
                 partial="Component/Modal/Toggle" />

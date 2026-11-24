@@ -60,13 +60,13 @@
                 <source>Previous</source>
                 <target>Zurück</target>
             </trans-unit>
-            <trans-unit id="resultsMeta">
-                <source>Showing {from}-{to} of {total}</source>
-                <target>Zeige {from}-{to} von {total}</target>
-            </trans-unit>
             <trans-unit id="resultsHeadline">
                 <source>Search results</source>
                 <target>Suchergebnisse</target>
+            </trans-unit>
+            <trans-unit id="resultsMeta">
+                <source>Showing {from}-{to} of {total}</source>
+                <target>Zeige {from}-{to} von {total}</target>
             </trans-unit>
             <trans-unit id="seasonLabel">
                 <source>Season</source>

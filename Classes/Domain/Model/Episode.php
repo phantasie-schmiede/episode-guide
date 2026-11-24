@@ -21,11 +21,6 @@ use PSBits\Foundation\Attribute\TCA\Ctrl;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Class Episode
- *
- * @package PSBits\EpisodeGuide\Domain\Model
- */
 #[Ctrl(
     defaultSortBy: 'episode_number ASC',
     label        : 'title',

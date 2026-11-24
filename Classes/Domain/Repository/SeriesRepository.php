@@ -16,10 +16,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * Class SeriesRepository
- *
  * @extends Repository<Series>
- * @package PSBits\EpisodeGuide\Domain\Repository
  */
 class SeriesRepository extends Repository
 {

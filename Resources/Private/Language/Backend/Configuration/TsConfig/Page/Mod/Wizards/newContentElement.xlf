@@ -7,14 +7,14 @@
         product-name="episode_guide"
         source-language="en">
         <body>
-            <trans-unit id="psbits.header">
-                <source>PSBits</source>
+            <trans-unit id="psbits.elements.series.description">
+                <source>Shows a selectable series including its seasons and episodes.</source>
             </trans-unit>
             <trans-unit id="psbits.elements.series.title">
                 <source>Episode Guide: Series</source>
             </trans-unit>
-            <trans-unit id="psbits.elements.series.description">
-                <source>Shows a selectable series including its seasons and episodes.</source>
+            <trans-unit id="psbits.header">
+                <source>PSBits</source>
             </trans-unit>
         </body>
     </file>

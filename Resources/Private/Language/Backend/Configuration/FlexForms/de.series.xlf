@@ -8,10 +8,6 @@
         source-language="en"
         target-language="de">
         <body>
-            <trans-unit id="sheet.general">
-                <source>General</source>
-                <target>Allgemein</target>
-            </trans-unit>
             <trans-unit id="settings.series">
                 <source>Series</source>
                 <target>Serie</target>
@@ -23,6 +19,10 @@
             <trans-unit id="settings.series.none">
                 <source>- show all series -</source>
                 <target>- alle Serien anzeigen -</target>
+            </trans-unit>
+            <trans-unit id="sheet.general">
+                <source>General</source>
+                <target>Allgemein</target>
             </trans-unit>
         </body>
     </file>

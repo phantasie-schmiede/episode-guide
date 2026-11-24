@@ -20,11 +20,6 @@ use PSBits\Foundation\Attribute\TCA\Ctrl;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-/**
- * Class Season
- *
- * @package PSBits\EpisodeGuide\Domain\Model
- */
 #[Ctrl(
     defaultSortBy: 'season_number ASC',
     label        : 'title',

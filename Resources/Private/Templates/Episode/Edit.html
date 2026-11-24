@@ -2,12 +2,12 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:foundation="http://typo3.org/ns/PSBits/Foundation/ViewHelpers"
-    xmlns:templates="http://typo3.org/ns/PSBits/Templates/ViewHelpers">
+    xmlns:frontendTemplates="http://typo3.org/ns/PSBits/FrontendTemplates/ViewHelpers">
     <f:layout name="Default" />
 
     <f:section name="Main">
         <foundation:translation.registerLanguageFile
-            file="EXT:templates/Resources/Private/Language/Frontend/form.xlf" />
+            file="EXT:frontend_templates/Resources/Private/Language/Frontend/form.xlf" />
 
         <f:form
             action="update"
@@ -26,8 +26,9 @@
                     action="show"
                     arguments="{episode: episode}"
                     class="align-items-center bg-secondary-subtle btn d-flex">
-                    {templates:svgIcon(additionalClasses: 'me-2', identifier:
-                    'templates-x-lg')}{foundation:translate(id: 'form:cancel')}
+                    {frontendTemplates:svgIcon(additionalClasses: 'me-2',
+                    identifier: 'templates-x-lg')}{foundation:translate(id:
+                    'form:cancel')}
                 </f:link.action>
                 <templates:component.button
                     additionalClasses="bg-primary-subtle ms-2"

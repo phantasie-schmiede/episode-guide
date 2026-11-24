@@ -9,7 +9,7 @@ plugin {
 
       partialRootPaths {
         0 = {$plugin.tx_episodeguide.view.partialRootPath}
-        10 = {$plugin.tx_templates.view.partialRootPath}
+        10 = {$plugin.tx_frontendtemplates.view.partialRootPath}
       }
 
       templateRootPaths.0 = {$plugin.tx_episodeguide.view.templateRootPath}

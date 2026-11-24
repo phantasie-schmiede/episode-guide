@@ -17,10 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * Class SeasonRepository
- *
  * @extends Repository<Season>
- * @package PSBits\EpisodeGuide\Domain\Repository
  */
 class SeasonRepository extends Repository
 {

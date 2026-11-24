@@ -17,10 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * Class EpisodeRepository
- *
  * @extends Repository<Episode>
- * @package PSBits\EpisodeGuide\Domain\Repository
  */
 class EpisodeRepository extends Repository
 {
@@ -33,6 +30,7 @@ class EpisodeRepository extends Repository
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('season.series', $series));
         $query->setOrderings([
+            // PSBits/alphabetical_array_keys=off — Seasons must be ordered before episodes.
             'season.seasonNumber' => QueryInterface::ORDER_ASCENDING,
             'episodeNumber'       => QueryInterface::ORDER_ASCENDING,
             'uid'                 => QueryInterface::ORDER_ASCENDING,

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace PSBits\EpisodeGuide\Controller;
 
+use InvalidArgumentException;
 use PSBits\EpisodeGuide\Domain\Model\Season;
 use PSBits\EpisodeGuide\Domain\Repository\SeasonRepository;
 use PSBits\Foundation\Attribute\PluginAction;
@@ -20,11 +21,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 
-/**
- * Class SeasonController
- *
- * @package PSBits\EpisodeGuide\Controller
- */
 class SeasonController extends ActionController
 {
     public function __construct(
@@ -34,6 +30,7 @@ class SeasonController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      */
     #[PluginAction(uncached: true)]
     public function createAction(Season $season): ResponseInterface
@@ -46,6 +43,7 @@ class SeasonController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      */
     #[PluginAction(uncached: true)]
     public function deleteAction(Season $season): ResponseInterface
@@ -83,6 +81,7 @@ class SeasonController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      * @throws UnknownObjectException
      */
     #[PluginAction(uncached: true)]
