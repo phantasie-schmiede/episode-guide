@@ -18,6 +18,7 @@ use PSBits\EpisodeGuide\Domain\Repository\SeriesRepository;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -25,16 +26,23 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 
+use function basename;
+use function count;
+use function file_get_contents;
+use function glob;
+use function is_dir;
 use function is_string;
+use function sort;
+use function sprintf;
+use function str_starts_with;
+use function trim;
 
-/**
- * Class ImportEpisodesCommand
- *
- * @package PSBits\EpisodeGuide\Command
- */
 #[AsCommand(name: 'episode-guide:import-episodes', description: 'Import episodes from JSON files into a selected season.')]
 class ImportEpisodesCommand extends Command
 {
+    /**
+     * @throws LogicException
+     */
     public function __construct(
         private readonly EpisodeRepository           $episodeRepository,
         private readonly PersistenceManagerInterface $persistenceManager,

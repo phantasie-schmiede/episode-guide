@@ -28,13 +28,13 @@
                 <source>There are no seasons yet.</source>
                 <target>Es gibt noch keine Staffeln.</target>
             </trans-unit>
-            <trans-unit id="seasonNumber">
-                <source>Season</source>
-                <target>Staffel</target>
-            </trans-unit>
             <trans-unit id="search">
                 <source>Search episodes</source>
                 <target>Folgen suchen</target>
+            </trans-unit>
+            <trans-unit id="seasonNumber">
+                <source>Season</source>
+                <target>Staffel</target>
             </trans-unit>
             <trans-unit id="seasonsHeadline">
                 <source>Seasons</source>

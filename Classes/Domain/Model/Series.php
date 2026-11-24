@@ -19,11 +19,6 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-/**
- * Class Series
- *
- * @package PSBits\EpisodeGuide\Domain\Model
- */
 #[Ctrl(
     defaultSortBy: 'title ASC',
     label        : 'title',

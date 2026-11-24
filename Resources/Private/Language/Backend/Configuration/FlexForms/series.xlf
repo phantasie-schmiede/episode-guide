@@ -7,9 +7,6 @@
         product-name="episode_guide"
         source-language="en">
         <body>
-            <trans-unit id="sheet.general">
-                <source>General</source>
-            </trans-unit>
             <trans-unit id="settings.series">
                 <source>Series</source>
             </trans-unit>
@@ -18,6 +15,9 @@
             </trans-unit>
             <trans-unit id="settings.series.none">
                 <source>- show all series -</source>
+            </trans-unit>
+            <trans-unit id="sheet.general">
+                <source>General</source>
             </trans-unit>
         </body>
     </file>

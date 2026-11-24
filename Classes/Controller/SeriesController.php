@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace PSBits\EpisodeGuide\Controller;
 
+use InvalidArgumentException;
 use JsonException;
 use PSBits\EpisodeGuide\Domain\Model\Episode;
 use PSBits\EpisodeGuide\Domain\Model\Season;
@@ -24,8 +25,11 @@ use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+use ValueError;
 
 use function array_slice;
+use function array_unique;
+use function array_values;
 use function count;
 use function function_exists;
 use function is_array;
@@ -33,13 +37,15 @@ use function is_bool;
 use function is_float;
 use function is_int;
 use function is_string;
+use function json_decode;
+use function max;
+use function sprintf;
+use function str_starts_with;
 use function strlen;
+use function substr;
+use function trim;
+use function usort;
 
-/**
- * Class SeriesController
- *
- * @package PSBits\EpisodeGuide\Controller
- */
 class SeriesController extends ActionController
 {
     public function __construct(
@@ -50,6 +56,7 @@ class SeriesController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      */
     #[PluginAction(uncached: true)]
     public function createAction(Series $series): ResponseInterface
@@ -62,6 +69,7 @@ class SeriesController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      */
     #[PluginAction(uncached: true)]
     public function deleteAction(Series $series): ResponseInterface
@@ -99,6 +107,7 @@ class SeriesController extends ActionController
 
     /**
      * @throws JsonException
+     * @throws ValueError
      */
     #[PluginAction(uncached: true)]
     public function searchAction(Series $series, int $page = 1, string $query = ''): ResponseInterface
@@ -145,6 +154,8 @@ class SeriesController extends ActionController
      *
      * If no series is passed via request, the series selected in the plugin's FlexForm is used. Without any usable
      * series the action falls back to the list view.
+     *
+     * @throws InvalidArgumentException
      */
     #[IgnoreValidation(['value' => 'series'])]
     #[PluginAction(default: true)]
@@ -163,6 +174,7 @@ class SeriesController extends ActionController
 
     /**
      * @throws IllegalObjectTypeException
+     * @throws InvalidArgumentException
      * @throws UnknownObjectException
      */
     #[PluginAction(uncached: true)]
@@ -177,9 +189,9 @@ class SeriesController extends ActionController
     /**
      * @param array<string> $negativeTerms
      * @param array<string> $positiveTerms
-     *
      * @return array<string, mixed>|null
      * @throws JsonException
+     * @throws ValueError
      */
     private function buildEpisodeSearchResult(Episode $episode, array $positiveTerms, array $negativeTerms): ?array
     {
@@ -312,6 +324,7 @@ class SeriesController extends ActionController
     /**
      * @param array<string> $haystacks
      * @param array<string> $terms
+     * @throws ValueError
      */
     private function containsAllTermsInAnyHaystack(array $haystacks, array $terms): bool
     {
@@ -336,6 +349,7 @@ class SeriesController extends ActionController
 
     /**
      * @param array<string> $terms
+     * @throws ValueError
      */
     private function containsAnyTerms(string $haystack, array $terms): bool
     {
@@ -351,6 +365,7 @@ class SeriesController extends ActionController
     /**
      * @param array<string> $haystacks
      * @param array<string> $terms
+     * @throws ValueError
      */
     private function containsAnyTermsInAnyHaystack(array $haystacks, array $terms): bool
     {
@@ -363,6 +378,9 @@ class SeriesController extends ActionController
         return false;
     }
 
+    /**
+     * @throws ValueError
+     */
     private function containsTerm(string $haystack, string $term): bool
     {
         if (function_exists('mb_stripos')) {
